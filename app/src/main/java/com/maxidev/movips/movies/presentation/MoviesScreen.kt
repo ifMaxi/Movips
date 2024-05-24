@@ -23,12 +23,12 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.maxidev.movips.core.presentation.components.SectionItem
+import com.maxidev.movips.core.presentation.components.TopBarItem
 import com.maxidev.movips.movies.domain.models.NowPlayingMovies
 import com.maxidev.movips.movies.domain.models.PopularMovies
 import com.maxidev.movips.movies.domain.models.TopRatedMovies
 import com.maxidev.movips.movies.domain.models.UpcomingMovies
-import com.maxidev.movips.core.presentation.components.SectionItem
-import com.maxidev.movips.core.presentation.components.TopBarItem
 import com.maxidev.movips.movies.presentation.components.NowPlayingItem
 import com.maxidev.movips.movies.presentation.components.PopularMovieItem
 import com.maxidev.movips.movies.presentation.components.TopRatedItem
@@ -37,7 +37,8 @@ import com.maxidev.movips.movies.presentation.components.UpcomingItem
 @Composable
 fun MoviesScreen(
     viewmodel: MoviesViewModel,
-    onClick: (Int) -> Unit
+    onClick: (Int) -> Unit,
+    navigateToSearch: () -> Unit
 ) {
     val nowPlayingState = viewmodel.nowPlayFlow.collectAsLazyPagingItems()
     val popularState = viewmodel.popularFlow.collectAsLazyPagingItems()
@@ -47,7 +48,10 @@ fun MoviesScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopBarItem(title = "Movips")
+            TopBarItem(
+                title = "Movips",
+                onClick = navigateToSearch
+            )
         }
     ) { innerPadding ->
         ListContent(

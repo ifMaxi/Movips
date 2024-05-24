@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
@@ -17,8 +16,7 @@ import kotlinx.coroutines.Dispatchers
 fun ItemCoil(
     modifier: Modifier = Modifier,
     image: String,
-    contentScale: ContentScale,
-    filter: ColorFilter? = null
+    contentScale: ContentScale
 ) {
     val context = LocalContext.current
     val imageRequest = ImageRequest.Builder(context)
@@ -40,8 +38,7 @@ fun ItemCoil(
             modifier = Modifier,
             model = imageRequest,
             contentDescription = null,
-            contentScale = contentScale,
-            colorFilter = filter
+            contentScale = contentScale
         )
     }
 }

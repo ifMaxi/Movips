@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.maxidev.movips.detail.presentation.DetailMovieScreen
 import com.maxidev.movips.movies.presentation.MoviesScreen
 import com.maxidev.movips.movies.presentation.MoviesViewModel
+import com.maxidev.movips.search.presentation.SearchMovieScreen
 
 @Composable
 fun NavigationGraph(
@@ -32,6 +33,11 @@ fun NavigationGraph(
                     navController.navigate(
                         Destinations.DetailScreen.route + "?movieId=${it}"
                     )
+                },
+                navigateToSearch = {
+                    navController.navigate(
+                        Destinations.SearchScreen.route
+                    )
                 }
             )
         }
@@ -43,6 +49,17 @@ fun NavigationGraph(
 
             DetailMovieScreen(
                 movieId = backStack ?: 0
+            )
+        }
+        composable(
+            route = Destinations.SearchScreen.route
+        ) {
+            SearchMovieScreen(
+                onClick = {
+                    navController.navigate(
+                        Destinations.DetailScreen.route + "?movieId=${it}"
+                    )
+                }
             )
         }
     }

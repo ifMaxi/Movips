@@ -2,7 +2,6 @@ package com.maxidev.movips.core.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.maxidev.movips.core.data.remote.AuthorizationInterceptor
-import com.maxidev.movips.movies.data.remote.MoviesRemoteApiService
 import com.maxidev.movips.core.utils.Constants.BASE_URL
 import com.maxidev.movips.core.utils.Constants.CONTENT_TYPE
 import dagger.Module
@@ -41,9 +40,4 @@ object RemoteModule {
             )
             .build()
     }
-
-    @Provides
-    @Singleton
-    fun providesApiService(retrofit: Retrofit): MoviesRemoteApiService =
-        retrofit.create(MoviesRemoteApiService::class.java)
 }

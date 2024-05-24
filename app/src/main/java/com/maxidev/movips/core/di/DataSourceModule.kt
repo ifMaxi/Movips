@@ -1,7 +1,7 @@
 package com.maxidev.movips.core.di
 
-import com.maxidev.movips.movies.data.remote.MoviesRemoteApiService
 import com.maxidev.movips.detail.data.datasource.DetailedMovieDataSource
+import com.maxidev.movips.detail.data.remote.DetailsRemoteApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun providesDetailedDataSource(api: MoviesRemoteApiService): DetailedMovieDataSource =
+    fun providesDetailedDataSource(api: DetailsRemoteApiService): DetailedMovieDataSource =
         DetailedMovieDataSource(api)
 }
