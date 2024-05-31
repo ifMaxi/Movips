@@ -9,5 +9,5 @@ data class PopularMoviesEntity(
     val id: Int,
     val posterPath: String,
     val title: String,
-    val popularity: Double,
+    val voteAverage: Double,
 )

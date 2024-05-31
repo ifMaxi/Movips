@@ -12,7 +12,7 @@ interface UpcomingMoviesDao {
     @Upsert
     suspend fun insertAll(movies: List<UpcomingMoviesEntity>)
 
-    @Query("SELECT * FROM upcoming_movies_entity ORDER BY releaseDate ASC")
+    @Query("SELECT * FROM upcoming_movies_entity")
     fun allPagingSource(): PagingSource<Int, UpcomingMoviesEntity>
 
     @Query("DELETE FROM upcoming_movies_entity")

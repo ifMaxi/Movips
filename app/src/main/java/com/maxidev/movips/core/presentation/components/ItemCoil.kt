@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.maxidev.movips.R
 import kotlinx.coroutines.Dispatchers
 
 @Composable
@@ -27,6 +28,7 @@ fun ItemCoil(
         .networkCachePolicy(CachePolicy.ENABLED)
         .allowHardware(true)
         .fetcherDispatcher(Dispatchers.IO)
+        .error(R.drawable.not_found)
         .build()
 
     Box(

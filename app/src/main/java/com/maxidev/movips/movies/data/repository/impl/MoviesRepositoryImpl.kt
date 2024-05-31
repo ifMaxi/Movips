@@ -6,20 +6,14 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.maxidev.movips.core.data.local.MovipsDataBase
-import com.maxidev.movips.movies.data.remote.MoviesRemoteApiService
-import com.maxidev.movips.movies.data.repository.MoviesRepository
 import com.maxidev.movips.movies.data.paging.NowPlayingMoviesRemoteMediator
 import com.maxidev.movips.movies.data.paging.PopularMoviesRemoteMediator
 import com.maxidev.movips.movies.data.paging.TopRatedMoviesRemoteMediator
 import com.maxidev.movips.movies.data.paging.UpcomingMoviesRemoteMediator
-import com.maxidev.movips.movies.domain.mappers.toNowPlayingExternalModel
-import com.maxidev.movips.movies.domain.mappers.toPopularExternalModel
-import com.maxidev.movips.movies.domain.mappers.toTopRatedExternalModel
-import com.maxidev.movips.movies.domain.mappers.toUpcomingExternalModel
-import com.maxidev.movips.movies.domain.models.NowPlayingMovies
-import com.maxidev.movips.movies.domain.models.PopularMovies
-import com.maxidev.movips.movies.domain.models.TopRatedMovies
-import com.maxidev.movips.movies.domain.models.UpcomingMovies
+import com.maxidev.movips.movies.data.remote.MoviesRemoteApiService
+import com.maxidev.movips.movies.data.repository.MoviesRepository
+import com.maxidev.movips.movies.domain.mappers.toExternalModel
+import com.maxidev.movips.movies.domain.models.Movies
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -30,7 +24,7 @@ class MoviesRepositoryImpl @Inject constructor(
     private val db: MovipsDataBase
 ): MoviesRepository {
 
-    override fun fetchNowPlayingMovies(): Flow<PagingData<NowPlayingMovies>> {
+    override fun fetchNowPlayingMovies(): Flow<PagingData<Movies>> {
         val pagingSourceFactory =  {
             db.nowPlayingMoviesDao().allPagingSource()
         }
@@ -47,11 +41,11 @@ class MoviesRepositoryImpl @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
             .map { pagingData ->
-                pagingData.map { it.toNowPlayingExternalModel() }
+                pagingData.map { it.toExternalModel() }
             }
     }
 
-    override fun fetchTopRatedMovies(): Flow<PagingData<TopRatedMovies>> {
+    override fun fetchTopRatedMovies(): Flow<PagingData<Movies>> {
         val pagingSourceFactory =  {
             db.topRatedMoviesDao().allPagingSource()
         }
@@ -68,11 +62,11 @@ class MoviesRepositoryImpl @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
             .map { pagingData ->
-                pagingData.map { it.toTopRatedExternalModel() }
+                pagingData.map { it.toExternalModel() }
             }
     }
 
-    override fun fetchPopularMovies(): Flow<PagingData<PopularMovies>> {
+    override fun fetchPopularMovies(): Flow<PagingData<Movies>> {
         val pagingSourceFactory =  {
             db.popularMoviesDao().allPagingSource()
         }
@@ -89,11 +83,11 @@ class MoviesRepositoryImpl @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
             .map { pagingData ->
-                pagingData.map { it.toPopularExternalModel() }
+                pagingData.map { it.toExternalModel() }
             }
     }
 
-    override fun fetchUpcomingMovies(): Flow<PagingData<UpcomingMovies>> {
+    override fun fetchUpcomingMovies(): Flow<PagingData<Movies>> {
         val pagingSourceFactory =  {
             db.upcomingMoviesDao().allPagingSource()
         }
@@ -110,7 +104,7 @@ class MoviesRepositoryImpl @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
             .map { pagingData ->
-                pagingData.map { it.toUpcomingExternalModel() }
+                pagingData.map { it.toExternalModel() }
             }
     }
 }

@@ -1,38 +1,39 @@
 package com.maxidev.movips.movies.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.maxidev.movips.core.presentation.components.SectionItem
 import com.maxidev.movips.core.presentation.components.TopBarItem
-import com.maxidev.movips.movies.domain.models.NowPlayingMovies
-import com.maxidev.movips.movies.domain.models.PopularMovies
-import com.maxidev.movips.movies.domain.models.TopRatedMovies
-import com.maxidev.movips.movies.domain.models.UpcomingMovies
+import com.maxidev.movips.movies.domain.models.Movies
+import com.maxidev.movips.movies.presentation.components.ImageCardWithRatedIcons
 import com.maxidev.movips.movies.presentation.components.NowPlayingItem
-import com.maxidev.movips.movies.presentation.components.PopularMovieItem
-import com.maxidev.movips.movies.presentation.components.TopRatedItem
-import com.maxidev.movips.movies.presentation.components.UpcomingItem
+import kotlin.math.absoluteValue
 
 @Composable
 fun MoviesScreen(
@@ -65,38 +66,64 @@ fun MoviesScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ListContent(
     modifier: Modifier = Modifier,
-    now: LazyPagingItems<NowPlayingMovies>,
-    popular: LazyPagingItems<PopularMovies>,
-    topRated: LazyPagingItems<TopRatedMovies>,
-    upcoming: LazyPagingItems<UpcomingMovies>,
+    now: LazyPagingItems<Movies>,
+    popular: LazyPagingItems<Movies>,
+    topRated: LazyPagingItems<Movies>,
+    upcoming: LazyPagingItems<Movies>,
     onClick: (Int) -> Unit
 ) {
     val scrollState = rememberScrollState()
+    val pagerState = rememberPagerState(pageCount = { now.itemCount })
 
     Column(
         modifier = modifier
             .verticalScroll(scrollState)
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+            .padding(4.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        LazyRowListItem(
+        SectionItem(
             title = "Now Playing",
-            model = now,
+            fontSize = 34.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+        HorizontalPager(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(10.dp),
+            state = pagerState,
             key = now.itemKey { it.id },
-            contentType = now.itemContentType { it.id },
-            composable = {
-                NowPlayingItem(
-                    posterPath = it.posterPath,
-                    backdropPath = it.backdropPath,
-                    title = it.title,
-                    onClick = { onClick(it.id) }
-                )
+            pageSpacing = 40.dp,
+            pageContent = { page ->
+                val item = now[page]
+
+                item?.let {
+                    NowPlayingItem(
+                        modifier = Modifier
+                            .graphicsLayer {
+                                val pageOffset = (
+                                        (pagerState.currentPage - page) + pagerState
+                                            .currentPageOffsetFraction
+                                        ).absoluteValue
+
+                                alpha = lerp(
+                                    start = 0.5f,
+                                    stop = 1f,
+                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                )
+                            },
+                        posterPath = item.posterPath ?: "",
+                        backdropPath = item.backdropPath ?: "",
+                        title = item.title ?: "",
+                        onClick = { onClick(item.id) }
+                    )
+                }
             }
         )
 
@@ -106,10 +133,10 @@ private fun ListContent(
             key = popular.itemKey { it.id },
             contentType = popular.itemContentType { it.id },
             composable = {
-                PopularMovieItem(
-                    img = it.posterPath,
-                    title = it.title,
-                    popularity = it.popularity,
+                ImageCardWithRatedIcons(
+                    img = it.posterPath.toString(),
+                    title = it.title.toString(),
+                    voteAverage = it.voteAverage ?: 0.0,
                     onClick = { onClick(it.id) }
                 )
             }
@@ -121,25 +148,25 @@ private fun ListContent(
             key = topRated.itemKey { it.id },
             contentType = topRated.itemContentType { it.id },
             composable = {
-                TopRatedItem(
-                    img = it.posterPath,
-                    title = it.title,
-                    voteAverage = it.voteAverage,
+                ImageCardWithRatedIcons(
+                    img = it.posterPath.toString(),
+                    title = it.title.toString(),
+                    voteAverage = it.voteAverage ?: 0.0,
                     onClick = { onClick(it.id) }
                 )
             }
         )
 
         LazyRowListItem(
-            title = "Upcoming",
+            title = "Coming Soon",
             model = upcoming,
             key = upcoming.itemKey { it.id },
             contentType = upcoming.itemContentType { it.id },
             composable = {
-                UpcomingItem(
-                    img = it.posterPath,
-                    title = it.title,
-                    releaseDate = it.releaseDate,
+                ImageCardWithRatedIcons(
+                    img = it.posterPath.toString(),
+                    title = it.title.toString(),
+                    voteAverage = it.voteAverage ?: 0.0,
                     onClick = { onClick(it.id) }
                 )
             }
@@ -168,14 +195,14 @@ private fun <T : Any> LazyRowListItem(
     ) {
         SectionItem(
             title = title,
-            fontSize = 28.sp
+            fontSize = 34.sp
         )
         LazyRow(
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth(),
             state = lazyState,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(40.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(
@@ -188,6 +215,5 @@ private fun <T : Any> LazyRowListItem(
                 }
             }
         }
-        HorizontalDivider()
     }
 }

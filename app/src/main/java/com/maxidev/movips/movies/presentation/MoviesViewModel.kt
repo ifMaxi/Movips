@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val repository: MoviesRepository
+    repository: MoviesRepository
 ): ViewModel() {
 
     val nowPlayFlow = repository.fetchNowPlayingMovies().cachedIn(viewModelScope)

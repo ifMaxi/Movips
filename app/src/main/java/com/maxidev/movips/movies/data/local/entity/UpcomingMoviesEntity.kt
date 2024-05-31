@@ -9,5 +9,5 @@ data class UpcomingMoviesEntity(
     val id: Int,
     val title: String,
     val posterPath: String,
-    val releaseDate: String
+    val voteAverage: Double
 )

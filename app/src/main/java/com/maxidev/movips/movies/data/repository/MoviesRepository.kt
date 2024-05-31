@@ -1,19 +1,16 @@
 package com.maxidev.movips.movies.data.repository
 
 import androidx.paging.PagingData
-import com.maxidev.movips.movies.domain.models.NowPlayingMovies
-import com.maxidev.movips.movies.domain.models.PopularMovies
-import com.maxidev.movips.movies.domain.models.TopRatedMovies
-import com.maxidev.movips.movies.domain.models.UpcomingMovies
+import com.maxidev.movips.movies.domain.models.Movies
 import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
 
-    fun fetchNowPlayingMovies(): Flow<PagingData<NowPlayingMovies>>
+    fun fetchNowPlayingMovies(): Flow<PagingData<Movies>>
 
-    fun fetchTopRatedMovies(): Flow<PagingData<TopRatedMovies>>
+    fun fetchTopRatedMovies(): Flow<PagingData<Movies>>
 
-    fun fetchPopularMovies(): Flow<PagingData<PopularMovies>>
+    fun fetchPopularMovies(): Flow<PagingData<Movies>>
 
-    fun fetchUpcomingMovies(): Flow<PagingData<UpcomingMovies>>
+    fun fetchUpcomingMovies(): Flow<PagingData<Movies>>
 }

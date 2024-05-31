@@ -1,6 +1,8 @@
 package com.maxidev.movips.core.di
 
+import com.maxidev.movips.detail.data.datasource.CreditMovieDataSource
 import com.maxidev.movips.detail.data.datasource.DetailedMovieDataSource
+import com.maxidev.movips.detail.data.datasource.ImageMovieDataSource
 import com.maxidev.movips.detail.data.remote.DetailsRemoteApiService
 import dagger.Module
 import dagger.Provides
@@ -16,4 +18,14 @@ object DataSourceModule {
     @Singleton
     fun providesDetailedDataSource(api: DetailsRemoteApiService): DetailedMovieDataSource =
         DetailedMovieDataSource(api)
+
+    @Provides
+    @Singleton
+    fun providesCreditDataSource(api: DetailsRemoteApiService): CreditMovieDataSource =
+        CreditMovieDataSource(api)
+
+    @Provides
+    @Singleton
+    fun providesImageDataSource(api: DetailsRemoteApiService): ImageMovieDataSource =
+        ImageMovieDataSource(api)
 }

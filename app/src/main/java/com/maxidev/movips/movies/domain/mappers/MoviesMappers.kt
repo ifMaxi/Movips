@@ -6,10 +6,7 @@ import com.maxidev.movips.movies.data.local.entity.TopRatedMoviesEntity
 import com.maxidev.movips.movies.data.local.entity.UpcomingMoviesEntity
 import com.maxidev.movips.movies.data.remote.dto.NowPlayingAndUpcomingMovieDTO
 import com.maxidev.movips.movies.data.remote.dto.PopularAndTopRatedMoviesDTO
-import com.maxidev.movips.movies.domain.models.NowPlayingMovies
-import com.maxidev.movips.movies.domain.models.PopularMovies
-import com.maxidev.movips.movies.domain.models.TopRatedMovies
-import com.maxidev.movips.movies.domain.models.UpcomingMovies
+import com.maxidev.movips.movies.domain.models.Movies
 
 /**
  * Mappers for NowPlayingMovies.
@@ -25,13 +22,14 @@ fun NowPlayingAndUpcomingMovieDTO.toNowPlayingEntity() =
         )
     }
 
-fun NowPlayingMoviesEntity.toNowPlayingExternalModel() =
-    NowPlayingMovies(
+fun NowPlayingMoviesEntity.toExternalModel() =
+    Movies(
         id = id,
         title = title,
         posterPath = posterPath,
         backdropPath = backdropPath
     )
+
 
 /**
  * Mappers for TopRatedMovies
@@ -47,8 +45,8 @@ fun PopularAndTopRatedMoviesDTO.toTopRatedEntity() =
         )
     }
 
-fun TopRatedMoviesEntity.toTopRatedExternalModel() =
-    TopRatedMovies(
+fun TopRatedMoviesEntity.toExternalModel() =
+    Movies(
         id = id,
         title = title,
         posterPath = posterPath,
@@ -65,16 +63,16 @@ fun PopularAndTopRatedMoviesDTO.toPopularEntity() =
             id = data.id ?: 0,
             posterPath = data.posterPath.toString(),
             title = data.title.toString(),
-            popularity = data.popularity ?: 0.0
+            voteAverage = data.voteAverage ?: 0.0
         )
     }
 
-fun PopularMoviesEntity.toPopularExternalModel() =
-    PopularMovies(
+fun PopularMoviesEntity.toExternalModel() =
+    Movies(
         id = id,
         title = title,
         posterPath = posterPath,
-        popularity = popularity
+        voteAverage = voteAverage,
     )
 
 /**
@@ -87,14 +85,14 @@ fun NowPlayingAndUpcomingMovieDTO.toUpcomingEntity() =
             id = data.id ?: 0,
             title = data.title.toString(),
             posterPath = data.posterPath.toString(),
-            releaseDate = data.releaseDate.toString()
+            voteAverage = data.voteAverage ?: 0.0
         )
     }
 
-fun UpcomingMoviesEntity.toUpcomingExternalModel() =
-    UpcomingMovies(
+fun UpcomingMoviesEntity.toExternalModel() =
+    Movies(
         id = id,
         title = title,
         posterPath = posterPath,
-        releaseDate = releaseDate
+        voteAverage = voteAverage
     )

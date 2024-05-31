@@ -30,7 +30,7 @@ import com.maxidev.movips.movies.data.local.entity.remote_key_entity.UpcomingMov
         TopRatedMoviesRemoteKeyEntity::class,
         UpcomingMoviesRemoteKeyEntity::class
                ],
-    version = 8,
+    version = 10,
     exportSchema = false
 )
 abstract class MovipsDataBase: RoomDatabase() {

@@ -30,7 +30,7 @@ fun SectionItem(
         Text(
             text = title,
             fontSize = fontSize,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
