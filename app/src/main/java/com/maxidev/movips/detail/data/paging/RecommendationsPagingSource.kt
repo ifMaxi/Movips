@@ -9,7 +9,8 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class RecommendationsPagingSource(
-    private val apiService: DetailsRemoteApiService
+    private val apiService: DetailsRemoteApiService,
+    private val movieId: Int
 ): PagingSource<Int, RecommendationsMovies>() {
 
     override fun getRefreshKey(state: PagingState<Int, RecommendationsMovies>): Int? {
@@ -24,7 +25,7 @@ class RecommendationsPagingSource(
             val nextPage = params.key ?: 1
             val response = apiService.getRecommendationsMovie(
                 page = nextPage,
-                movieId = 0
+                movieId = movieId
             ).toExternalModel()
 
             LoadResult.Page(

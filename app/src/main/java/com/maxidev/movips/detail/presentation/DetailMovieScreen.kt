@@ -41,7 +41,8 @@ fun DetailMovieScreen(
     CheckStatus(
         detailStatus = detailState,
         onImagesClick = { onImagesClick(movieId) },
-        onCreditsClick = { onCreditsClick(movieId) }
+        onCreditsClick = { onCreditsClick(movieId) },
+        movieId = movieId
     )
 }
 
@@ -49,7 +50,8 @@ fun DetailMovieScreen(
 private fun CheckStatus(
     detailStatus: DetailState,
     onImagesClick: () -> Unit,
-    onCreditsClick: () -> Unit
+    onCreditsClick: () -> Unit,
+    movieId: Int
 ) {
 
     when (detailStatus) {
@@ -58,7 +60,8 @@ private fun CheckStatus(
         is DetailState.Success -> DetailContent(
             model = detailStatus.onSuccess,
             onImagesClick = { onImagesClick() },
-            onCreditsClick = { onCreditsClick() }
+            onCreditsClick = { onCreditsClick() },
+            movieId = movieId
         )
     }
 }
@@ -71,7 +74,8 @@ private fun DetailContent(
     modifier: Modifier = Modifier,
     model: DetailedMovie,
     onImagesClick: () -> Unit,
-    onCreditsClick: () -> Unit
+    onCreditsClick: () -> Unit,
+    movieId: Int
 ) {
     val scrollState = rememberScrollState()
 
@@ -115,5 +119,6 @@ private fun DetailContent(
             spokenLanguages = model.spokenLanguages,
             releaseStatus = model.releaseStatus
         )
+        RecommendationMovieScreen(movieId = movieId)
     }
 }

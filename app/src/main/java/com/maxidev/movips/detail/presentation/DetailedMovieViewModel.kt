@@ -33,8 +33,4 @@ class DetailedMovieViewModel @Inject constructor(
             DetailState.Error(onError = e)
         }
     }
-
-    val pagerRecommendations = viewModelScope.launch {
-        repository.fetchedRecommendations()
-    }
 }

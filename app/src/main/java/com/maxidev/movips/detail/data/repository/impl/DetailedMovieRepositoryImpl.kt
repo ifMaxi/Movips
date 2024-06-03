@@ -34,14 +34,14 @@ class DetailedMovieRepositoryImpl @Inject constructor(
     override suspend fun fetchedImages(movieId: Int): List<ImageMovie> =
         imageDataSource.fetchImage(movieId)
 
-    override suspend fun fetchedRecommendations(): Flow<PagingData<RecommendationsMovies>> =
+    override fun fetchedRecommendations(movieId: Int): Flow<PagingData<RecommendationsMovies>> =
         Pager(
             config = PagingConfig(
                 pageSize = 5,
                 maxSize = 20
             ),
             pagingSourceFactory = {
-                RecommendationsPagingSource(api)
+                RecommendationsPagingSource(api, movieId = movieId)
             }
         ).flow
 }

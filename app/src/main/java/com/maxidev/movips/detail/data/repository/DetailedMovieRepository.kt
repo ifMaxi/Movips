@@ -15,5 +15,5 @@ interface DetailedMovieRepository {
 
     suspend fun fetchedImages(movieId: Int): List<ImageMovie>
 
-    suspend fun fetchedRecommendations(): Flow<PagingData<RecommendationsMovies>>
+    fun fetchedRecommendations(movieId: Int): Flow<PagingData<RecommendationsMovies>>
 }

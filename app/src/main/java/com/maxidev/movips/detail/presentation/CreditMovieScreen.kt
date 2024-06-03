@@ -24,6 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -88,7 +90,7 @@ private fun CreditContent(
             columns = StaggeredGridCells.Adaptive(200.dp),
             state = lazyGridState,
             contentPadding = PaddingValues(10.dp),
-            verticalItemSpacing = 10.dp,
+            verticalItemSpacing = 20.dp,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(
@@ -116,7 +118,7 @@ private fun CastingItem(
     Column(
         modifier = modifier
             .padding(10.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ElevatedCard(
@@ -131,10 +133,14 @@ private fun CastingItem(
             )
         }
         Text(
-            text = name
+            text = name,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center
         )
         Text(
-            text = "($character)"
+            text = "($character)",
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Light
         )
     }
 }
