@@ -13,5 +13,8 @@ data class DetailedMovie(
     val releaseStatus: String,
     val genres: List<String>,
     val tagline: String,
-    val spokenLanguages: List<String>
+    val spokenLanguages: List<String>,
+    val budget: Int,
+    val revenue: Int,
+    val voteAverage: Double
 )

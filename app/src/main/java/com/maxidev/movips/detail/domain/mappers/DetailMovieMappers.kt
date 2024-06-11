@@ -2,11 +2,9 @@ package com.maxidev.movips.detail.domain.mappers
 
 import com.maxidev.movips.detail.data.remote.dto.CreditsMovieDTO
 import com.maxidev.movips.detail.data.remote.dto.DetailedMovieDTO
-import com.maxidev.movips.detail.data.remote.dto.ImageMovieDTO
 import com.maxidev.movips.detail.data.remote.dto.RecommendationsMovieDTO
 import com.maxidev.movips.detail.domain.models.CreditsMovie
 import com.maxidev.movips.detail.domain.models.DetailedMovie
-import com.maxidev.movips.detail.domain.models.ImageMovie
 import com.maxidev.movips.detail.domain.models.RecommendationsMovies
 
 /**
@@ -28,6 +26,9 @@ fun DetailedMovieDTO.toExternalModel() =
         tagline = this.tagline.toString(),
         spokenLanguages = this.spokenLanguages?.map { it?.name.toString() } ?: emptyList(),
         productionCompanies = this.productionCompanies?.map { it?.name.toString() } ?: emptyList(),
+        budget = this.budget ?: 0,
+        revenue = this.revenue ?: 0,
+        voteAverage = this.voteAverage ?: 0.0
     )
 
 /**
@@ -42,18 +43,6 @@ fun CreditsMovieDTO.toExternalModel() =
             name = it?.name.toString(),
             character = it?.character.toString(),
             profilePath = it?.profilePath.toString()
-        )
-    }
-
-/**
- * Mappers fot ImageMovie
- */
-
-fun ImageMovieDTO.toExternalModel() =
-    this.backdrops?.map {
-        ImageMovie(
-            id = id ?: 0,
-            filePath = it?.filePath.toString()
         )
     }
 

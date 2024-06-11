@@ -9,6 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.maxidev.movips.search.data.repository.SearchMovieRepository
 import com.maxidev.movips.search.domain.models.SearchMovie
+import com.maxidev.movips.search.presentation.state.SearchState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

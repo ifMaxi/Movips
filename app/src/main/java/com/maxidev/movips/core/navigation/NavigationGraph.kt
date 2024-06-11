@@ -9,9 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.maxidev.movips.detail.presentation.CreditMovieScreen
 import com.maxidev.movips.detail.presentation.DetailMovieScreen
-import com.maxidev.movips.detail.presentation.ImageBackgroundScreen
 import com.maxidev.movips.movies.presentation.MoviesScreen
 import com.maxidev.movips.movies.presentation.MoviesViewModel
 import com.maxidev.movips.search.presentation.SearchMovieScreen
@@ -49,35 +47,7 @@ fun NavigationGraph(
         ) { backStackEntry ->
             val backStack = backStackEntry.arguments?.getInt("movieId")
 
-            DetailMovieScreen(
-                movieId = backStack ?: 0,
-                onImagesClick = {
-                    navController.navigate(
-                        Destinations.ImageBackScreen.route + "?movieId=${it}"
-                    )
-                },
-                onCreditsClick = {
-                    navController.navigate(
-                        Destinations.CreditsScreen.route + "?movieId=${it}"
-                    )
-                }
-            )
-        }
-        composable(
-            route = Destinations.ImageBackScreen.route + "?movieId={movieId}",
-            arguments = listOf(navArgument("movieId") { type = NavType.IntType })
-        ) { backStackEntry ->
-            val backStack = backStackEntry.arguments?.getInt("movieId")
-
-            ImageBackgroundScreen(movieId = backStack ?: 0)
-        }
-        composable(
-            route = Destinations.CreditsScreen.route + "?movieId={movieId}",
-            arguments = listOf(navArgument("movieId") { type = NavType.IntType })
-        ) { navBackStackEntry ->
-            val backStackEntry = navBackStackEntry.arguments?.getInt("movieId")
-
-            CreditMovieScreen(movieId = backStackEntry ?: 0)
+            DetailMovieScreen(movieId = backStack ?: 0)
         }
         composable(
             route = Destinations.SearchScreen.route

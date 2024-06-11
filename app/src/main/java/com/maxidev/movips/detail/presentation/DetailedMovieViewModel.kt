@@ -2,6 +2,7 @@ package com.maxidev.movips.detail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.maxidev.movips.detail.data.repository.DetailedMovieRepository
 import com.maxidev.movips.detail.presentation.state.DetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ class DetailedMovieViewModel @Inject constructor(
     val detailState = _detailState.asStateFlow()
 
     fun fetchedDetails(movieId: Int) = viewModelScope.launch {
+        repository.fetchedDetails(movieId)
         _detailState.value = DetailState.Loading
         delay(1500)
         _detailState.value = try {
@@ -33,4 +35,10 @@ class DetailedMovieViewModel @Inject constructor(
             DetailState.Error(onError = e)
         }
     }
+
+    fun pagerCredits(movieId: Int) = repository.fetchedCredits(movieId)
+        .cachedIn(viewModelScope)
+
+    fun pagerRecommendations(movieId: Int) = repository.fetchedRecommendations(movieId)
+        .cachedIn(viewModelScope)
 }

@@ -20,9 +20,6 @@ object Constants {
     // Credits
     const val CREDITS_MOVIE = "movie/{movie_id}/credits"
 
-    // Images
-    const val IMAGES_MOVIE = "movie/{movie_id}/images"
-
     // Recommendations
     const val RECOMMENDATIONS_MOVIE = "movie/{movie_id}/recommendations"
 }
