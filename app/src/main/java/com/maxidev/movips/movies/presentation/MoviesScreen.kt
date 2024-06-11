@@ -3,18 +3,20 @@ package com.maxidev.movips.movies.presentation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -53,7 +55,8 @@ fun MoviesScreen(
                 title = "Movips",
                 onClick = navigateToSearch
             )
-        }
+        },
+        contentWindowInsets = WindowInsets.statusBars
     ) { innerPadding ->
         ListContent(
             now = nowPlayingState,
@@ -76,101 +79,111 @@ private fun ListContent(
     upcoming: LazyPagingItems<Movies>,
     onClick: (Int) -> Unit
 ) {
-    val scrollState = rememberScrollState()
+    val lazyState = rememberLazyListState()
     val pagerState = rememberPagerState(pageCount = { now.itemCount })
+    val fling = PagerDefaults.flingBehavior(
+        state = pagerState,
+        pagerSnapDistance = PagerSnapDistance.atMost(10)
+    )
 
-    Column(
+    LazyColumn(
         modifier = modifier
-            .verticalScroll(scrollState)
-            .wrapContentHeight()
-            .fillMaxWidth()
-            .padding(4.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+            .fillMaxSize(),
+        state = lazyState,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        SectionItem(
-            title = "Now Playing",
-            fontSize = 34.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-        )
-        HorizontalPager(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(10.dp),
-            state = pagerState,
-            key = now.itemKey { it.id },
-            pageSpacing = 40.dp,
-            pageContent = { page ->
-                val item = now[page]
+        item {
+            SectionItem(
+                title = "Now Playing",
+                fontSize = 30.sp,
+                modifier = Modifier
+                    .padding(10.dp)
+            )
+        }
+        item {
+            HorizontalPager(
+                modifier = Modifier
+                    .fillMaxSize(),
+                state = pagerState,
+                key = now.itemKey { it.id },
+                pageSpacing = 40.dp,
+                flingBehavior = fling,
+                verticalAlignment = Alignment.CenterVertically,
+                pageContent = { page ->
+                    val item = now[page]
 
-                item?.let {
-                    NowPlayingItem(
-                        modifier = Modifier
-                            .graphicsLayer {
-                                val pageOffset = (
-                                        (pagerState.currentPage - page) + pagerState
-                                            .currentPageOffsetFraction
-                                        ).absoluteValue
+                    item?.let {
+                        NowPlayingItem(
+                            modifier = Modifier
+                                .graphicsLayer {
+                                    val pageOffset = (
+                                            (pagerState.currentPage - page) + pagerState
+                                                .currentPageOffsetFraction
+                                            ).absoluteValue
 
-                                alpha = lerp(
-                                    start = 0.5f,
-                                    stop = 1f,
-                                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                                )
-                            },
-                        posterPath = item.posterPath ?: "",
-                        backdropPath = item.backdropPath ?: "",
-                        title = item.title ?: "",
-                        onClick = { onClick(item.id) }
+                                    alpha = lerp(
+                                        start = 0.5f,
+                                        stop = 1f,
+                                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                                    )
+                                },
+                            backdropPath = item.backdropPath ?: "",
+                            title = item.title ?: "",
+                            onClick = { onClick(item.id) }
+                        )
+                    }
+                }
+            )
+        }
+        item {
+            LazyRowListItem(
+                title = "Popular",
+                model = popular,
+                key = popular.itemKey { it.id },
+                contentType = popular.itemContentType { it.id },
+                composable = {
+                    ImageCardWithRatedIcons(
+                        img = it.posterPath.toString(),
+                        title = it.title.toString(),
+                        voteAverage = it.voteAverage ?: 0.0,
+                        onClick = { onClick(it.id) }
                     )
                 }
-            }
-        )
-
-        LazyRowListItem(
-            title = "The most Popular",
-            model = popular,
-            key = popular.itemKey { it.id },
-            contentType = popular.itemContentType { it.id },
-            composable = {
-                ImageCardWithRatedIcons(
-                    img = it.posterPath.toString(),
-                    title = it.title.toString(),
-                    voteAverage = it.voteAverage ?: 0.0,
-                    onClick = { onClick(it.id) }
-                )
-            }
-        )
-
-        LazyRowListItem(
-            title = "Top Rated Movies",
-            model = topRated,
-            key = topRated.itemKey { it.id },
-            contentType = topRated.itemContentType { it.id },
-            composable = {
-                ImageCardWithRatedIcons(
-                    img = it.posterPath.toString(),
-                    title = it.title.toString(),
-                    voteAverage = it.voteAverage ?: 0.0,
-                    onClick = { onClick(it.id) }
-                )
-            }
-        )
-
-        LazyRowListItem(
-            title = "Coming Soon",
-            model = upcoming,
-            key = upcoming.itemKey { it.id },
-            contentType = upcoming.itemContentType { it.id },
-            composable = {
-                ImageCardWithRatedIcons(
-                    img = it.posterPath.toString(),
-                    title = it.title.toString(),
-                    voteAverage = it.voteAverage ?: 0.0,
-                    onClick = { onClick(it.id) }
-                )
-            }
-        )
+            )
+        }
+        item {
+            LazyRowListItem(
+                title = "Top Rated",
+                model = topRated,
+                key = topRated.itemKey { it.id },
+                contentType = topRated.itemContentType { it.id },
+                composable = {
+                    ImageCardWithRatedIcons(
+                        img = it.posterPath.toString(),
+                        title = it.title.toString(),
+                        voteAverage = it.voteAverage ?: 0.0,
+                        onClick = { onClick(it.id) }
+                    )
+                }
+            )
+        }
+        item {
+            LazyRowListItem(
+                title = "Coming Soon",
+                model = upcoming,
+                key = upcoming.itemKey { it.id },
+                contentType = upcoming.itemContentType { it.id },
+                composable = {
+                    ImageCardWithRatedIcons(
+                        img = it.posterPath.toString(),
+                        title = it.title.toString(),
+                        voteAverage = it.voteAverage ?: 0.0,
+                        onClick = { onClick(it.id) }
+                    )
+                }
+            )
+        }
     }
 }
 
@@ -195,14 +208,16 @@ private fun <T : Any> LazyRowListItem(
     ) {
         SectionItem(
             title = title,
-            fontSize = 34.sp
+            fontSize = 28.sp,
+            modifier = Modifier
+                .padding(10.dp)
         )
         LazyRow(
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth(),
             state = lazyState,
-            horizontalArrangement = Arrangement.spacedBy(40.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(

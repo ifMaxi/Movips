@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,21 +28,23 @@ fun OverviewItem(
 ) {
     Column(
         modifier = modifier
-            .wrapContentHeight()
+            .wrapContentHeight(Alignment.Top)
             .fillMaxWidth()
-            .padding(14.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Text(
             text = "About",
             fontSize = 24.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier
+                .align(Alignment.Start)
         )
         Text(
             text = overview,
-            textAlign = TextAlign.Justify,
+            textAlign = TextAlign.Center,
             modifier = Modifier
-                .fillMaxWidth()
+                .align(Alignment.Start)
         )
     }
 }

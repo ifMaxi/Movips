@@ -1,11 +1,13 @@
 package com.maxidev.movips.search.presentation
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -13,7 +15,6 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -73,7 +74,8 @@ fun SearchMovieScreen(
                     focusManager.clearFocus()
                 }
             )
-        }
+        },
+        contentWindowInsets = WindowInsets.statusBars
     ) { paddingValues ->
         SearchItem(
             modifier = modifier.padding(paddingValues),
@@ -95,8 +97,9 @@ private fun SearchItem(
     LazyVerticalGrid(
         modifier = modifier
             .fillMaxSize(),
-        columns = GridCells.Adaptive(200.dp),
+        columns = GridCells.Adaptive(120.dp),
         state = lazyState,
+        contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
@@ -105,7 +108,7 @@ private fun SearchItem(
             key = rememberModel.itemKey { it.id }
         ) {data ->
             rememberModel[data]?.let {
-                PosterWithVoteAverage(
+                PosterSearch(
                     posterPath = it.posterPath,
                     onClick = { onClick(it.id) }
                 )
@@ -115,23 +118,18 @@ private fun SearchItem(
 }
 
 @Composable
-private fun PosterWithVoteAverage(
+private fun PosterSearch(
     modifier: Modifier = Modifier,
     posterPath: String,
     onClick: () -> Unit
 ) {
-    val roundedClip = RoundedCornerShape(5.dp)
+    val roundedClip = RoundedCornerShape(10)
 
     Card(
         modifier = modifier
-            .padding(10.dp)
-            .border(
-                width = 2.dp,
-                color = MaterialTheme.colorScheme.outline,
-                shape = roundedClip
-            ),
+            .padding(10.dp),
         shape = roundedClip,
-        elevation = CardDefaults.cardElevation(6.dp),
+        elevation = CardDefaults.cardElevation(8.dp),
         onClick = onClick
     ) {
         Box(
@@ -143,7 +141,7 @@ private fun PosterWithVoteAverage(
         ) {
             ItemCoil(
                 modifier = modifier
-                    .size(width = 190.dp, height = 270.dp)
+                    .size(width = 120.dp, height = 170.dp)
                     .clip(roundedClip),
                 image = posterPath,
                 contentScale = ContentScale.Crop

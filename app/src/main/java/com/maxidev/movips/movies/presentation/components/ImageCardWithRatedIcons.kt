@@ -1,6 +1,7 @@
 package com.maxidev.movips.movies.presentation.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,7 +44,8 @@ fun ImageCardWithRatedIcons(
         modifier = modifier
             .fillMaxSize()
             .padding(4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         ElevatedCard(
             modifier = Modifier
@@ -60,38 +62,45 @@ fun ImageCardWithRatedIcons(
             ) {
                 ItemCoil(
                     modifier = modifier
-                        .size(width = 250.dp, height = 350.dp)
+                        .size(width = 200.dp, height = 300.dp)
                         .clip(roundedClip)
                         .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
                         .drawWithContent {
                             val colors = listOf(
-                                Color.White,
-                                Color.White,
+                                Color.Black,
+                                Color.Black,
+                                Color.Transparent,
                                 Color.Transparent
                             )
                             drawContent()
                             drawRect(
-                                brush = Brush.verticalGradient(colors),
+                                brush = Brush.verticalGradient(
+                                    colors = colors,
+                                    startY = 0f,
+                                    endY = 1400f
+                                ),
                                 blendMode = BlendMode.DstIn
                             )
                         },
                     image = img,
                     contentScale = ContentScale.Crop
                 )
+                VoteStarsItem(
+                    percentage = voteAverage,
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                )
                 Text(
                     text = title,
-                    fontSize = 18.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Start,
                     modifier = Modifier
-                        .width(250.dp)
+                        .width(150.dp)
                         .padding(10.dp)
                         .align(Alignment.BottomStart)
                 )
             }
         }
-        PercentageItem(
-            percentage = voteAverage
-        )
     }
 }

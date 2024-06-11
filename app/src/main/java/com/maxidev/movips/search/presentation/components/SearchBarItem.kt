@@ -1,10 +1,12 @@
 package com.maxidev.movips.search.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
@@ -14,8 +16,11 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
@@ -31,11 +36,14 @@ fun SearchBarItem(
     onClearText: () -> Unit
 ) {
     val searchDef = SearchBarDefaults
+    val focusRequester = remember { FocusRequester() }
 
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .padding(10.dp)
+            .background(Color.Transparent),
         contentAlignment = Alignment.Center
     ) {
         SearchBar(
@@ -43,7 +51,8 @@ fun SearchBarItem(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(6.dp)
-                .align(Alignment.TopCenter),
+                .align(Alignment.TopCenter)
+                .focusRequester(focusRequester),
             query = value,
             onQueryChange = onValueChange,
             onSearch = onSearch,
@@ -61,16 +70,18 @@ fun SearchBarItem(
                 )
             },
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Outlined.Close,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clickable { onClearText() }
-                )
+                if (value.isNotBlank()) {
+                    Icon(
+                        imageVector = Icons.Outlined.Close,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .clickable { onClearText() }
+                    )
+                }
             },
+            shape = RoundedCornerShape(10),
             tonalElevation = searchDef.TonalElevation,
-            shadowElevation = searchDef.ShadowElevation,
-            colors = searchDef.colors(Color.Transparent)
+            shadowElevation = searchDef.ShadowElevation
         ) {
             // Do nothing
         }
