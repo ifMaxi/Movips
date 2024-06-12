@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.maxidev.movips.core.presentation.ui.theme.bebasNeue
 import kotlin.math.roundToInt
 
 @Composable
@@ -34,16 +36,17 @@ fun VoteStarsItem(
             .border(
                 border = BorderStroke(
                     width = 4.dp,
-                    color = goldColor
+                    color = MaterialTheme.colorScheme.outline
                 ),
                 shape = CircleShape
             )
-            .background(beigeColor),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = "⭐ ${(percentage * 10).roundToInt() / 10}",
             fontSize = 18.sp,
+            fontFamily = bebasNeue,
             fontWeight = FontWeight.Medium,
             color = Color.White
         )

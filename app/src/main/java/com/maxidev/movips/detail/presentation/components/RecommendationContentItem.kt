@@ -18,12 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maxidev.movips.core.presentation.components.ItemCoil
+import com.maxidev.movips.core.presentation.ui.theme.oswald
 import com.maxidev.movips.detail.domain.models.RecommendationsMovies
 
 @Composable
@@ -43,8 +43,8 @@ fun RecommendationContentItem(
         Text(
             text = "Recommended",
             fontSize = 22.sp,
+            fontFamily = oswald,
             fontWeight = FontWeight.Medium,
-            textDecoration = TextDecoration.Underline,
             modifier = Modifier
                 .padding(20.dp)
         )

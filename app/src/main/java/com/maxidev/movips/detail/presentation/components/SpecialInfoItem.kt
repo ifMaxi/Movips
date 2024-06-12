@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.maxidev.movips.core.presentation.ui.theme.oswald
 import kotlin.math.roundToInt
 
 /**
@@ -57,14 +57,15 @@ fun SpecialInfoItem(
         Text(
             text = "Additional Information",
             fontSize = 22.sp,
-            fontWeight = FontWeight.Medium,
-            textDecoration = TextDecoration.Underline
+            fontFamily = oswald,
+            fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.height(20.dp))
         informationList.forEach { word ->
             val buildStrings = buildAnnotatedString {
                 withStyle(
                     SpanStyle(
+                        fontFamily = oswald,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp
                     )

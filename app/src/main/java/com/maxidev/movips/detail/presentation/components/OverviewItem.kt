@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.maxidev.movips.core.presentation.ui.theme.oswald
 
 /**
  * Component of the containing function [DetailContent] this will have a description of the
@@ -36,6 +37,7 @@ fun OverviewItem(
         Text(
             text = "About",
             fontSize = 24.sp,
+            fontFamily = oswald,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .align(Alignment.Start)

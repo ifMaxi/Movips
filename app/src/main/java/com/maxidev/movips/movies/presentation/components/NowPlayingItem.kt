@@ -21,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maxidev.movips.core.presentation.components.ItemCoil
+import com.maxidev.movips.core.presentation.ui.theme.bebasNeue
 
 @Composable
 fun NowPlayingItem(
@@ -68,7 +68,7 @@ fun NowPlayingItem(
                             brush = Brush.verticalGradient(
                                 colors = colors,
                                 startY = 0f,
-                                endY = 1400f
+                                endY = 1000f
                             ),
                             blendMode = BlendMode.DstIn
                         )
@@ -78,8 +78,8 @@ fun NowPlayingItem(
             )
             Text(
                 text = title,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontSize = 24.sp,
+                fontFamily = bebasNeue,
                 modifier = Modifier
                     .width(300.dp)
                     .padding(20.dp)

@@ -24,11 +24,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.maxidev.movips.core.presentation.components.ItemCoil
+import com.maxidev.movips.core.presentation.ui.theme.bebasNeue
 
 @Composable
 fun ImageCardWithRatedIcons(
@@ -92,8 +91,7 @@ fun ImageCardWithRatedIcons(
                 )
                 Text(
                     text = title,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
+                    fontFamily = bebasNeue,
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .width(150.dp)

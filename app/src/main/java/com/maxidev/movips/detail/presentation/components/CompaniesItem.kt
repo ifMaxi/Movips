@@ -17,9 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.maxidev.movips.core.presentation.ui.theme.oswald
 
 /**
  * Component of the containing function [DetailContent] will show a list of names of all
@@ -41,8 +41,8 @@ fun CompaniesItem(
         Text(
             text = "Producers",
             fontSize = 22.sp,
-            fontWeight = FontWeight.Medium,
-            textDecoration = TextDecoration.Underline
+            fontFamily = oswald,
+            fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.height(20.dp))
         productionCompany.forEach { company ->

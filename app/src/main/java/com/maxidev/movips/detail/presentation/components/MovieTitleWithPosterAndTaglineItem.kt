@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maxidev.movips.core.presentation.components.ItemCoil
+import com.maxidev.movips.core.presentation.ui.theme.bebasNeue
 
 /**
  * Component of the containing function [DetailContent] contains a rear image that
@@ -80,6 +81,7 @@ fun MovieTitleWithPosterAndTaglineItem(
             Text(
                 text = title,
                 fontSize = 28.sp,
+                fontFamily = bebasNeue,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
             )

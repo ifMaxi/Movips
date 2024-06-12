@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.maxidev.movips.core.presentation.ui.theme.oswald
 
 @Composable
 fun SectionItem(
@@ -30,7 +31,8 @@ fun SectionItem(
         Text(
             text = title,
             fontSize = fontSize,
-            fontWeight = FontWeight.Medium
+            fontFamily = oswald,
+            fontWeight = FontWeight.Bold
         )
     }
 }

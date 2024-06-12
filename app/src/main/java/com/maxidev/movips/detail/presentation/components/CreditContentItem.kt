@@ -31,6 +31,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maxidev.movips.core.presentation.components.ItemCoil
 import com.maxidev.movips.core.presentation.components.SectionItem
+import com.maxidev.movips.core.presentation.ui.theme.oswald
 import com.maxidev.movips.detail.domain.models.CreditsMovie
 
 @Composable
@@ -113,7 +114,9 @@ private fun CastingItem(
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = name
+                text = name,
+                fontFamily = oswald,
+                fontSize = 18.sp
             )
             Text(
                 text = "($character)",
