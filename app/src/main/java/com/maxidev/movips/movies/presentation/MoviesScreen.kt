@@ -3,11 +3,9 @@ package com.maxidev.movips.movies.presentation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -41,7 +39,6 @@ import kotlin.math.absoluteValue
 fun MoviesScreen(
     viewmodel: MoviesViewModel,
     onClick: (Int) -> Unit,
-    navigateToSearch: () -> Unit
 ) {
     val nowPlayingState = viewmodel.nowPlayFlow.collectAsLazyPagingItems()
     val popularState = viewmodel.popularFlow.collectAsLazyPagingItems()
@@ -49,14 +46,11 @@ fun MoviesScreen(
     val upcomingState = viewmodel.upcomingFlow.collectAsLazyPagingItems()
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBarItem(
-                title = "Movips",
-                onClick = navigateToSearch
+                title = "Movips"
             )
-        },
-        contentWindowInsets = WindowInsets.statusBars
+        }
     ) { innerPadding ->
         ListContent(
             now = nowPlayingState,

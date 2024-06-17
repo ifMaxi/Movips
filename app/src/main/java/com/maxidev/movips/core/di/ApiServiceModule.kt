@@ -3,6 +3,7 @@ package com.maxidev.movips.core.di
 import com.maxidev.movips.detail.data.remote.DetailsRemoteApiService
 import com.maxidev.movips.movies.data.remote.MoviesRemoteApiService
 import com.maxidev.movips.search.data.remote.SearchRemoteApiService
+import com.maxidev.movips.trending.data.remote.TrendingMovieRemoteApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +29,9 @@ object ApiServiceModule {
     @Singleton
     fun providesSearchApiService(retrofit: Retrofit): SearchRemoteApiService =
         retrofit.create(SearchRemoteApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesTrendingApiService(retrofit: Retrofit): TrendingMovieRemoteApiService =
+        retrofit.create(TrendingMovieRemoteApiService::class.java)
 }

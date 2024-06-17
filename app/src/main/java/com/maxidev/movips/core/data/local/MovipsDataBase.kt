@@ -18,6 +18,10 @@ import com.maxidev.movips.movies.data.local.entity.remote_key_entity.NowPlayingM
 import com.maxidev.movips.movies.data.local.entity.remote_key_entity.PopularMoviesRemoteKeyEntity
 import com.maxidev.movips.movies.data.local.entity.remote_key_entity.TopRatedMoviesRemoteKeyEntity
 import com.maxidev.movips.movies.data.local.entity.remote_key_entity.UpcomingMoviesRemoteKeyEntity
+import com.maxidev.movips.trending.data.local.dao.TrendingMovieDao
+import com.maxidev.movips.trending.data.local.dao.remote_key_dao.TrendingMoviesRemoteKeyDao
+import com.maxidev.movips.trending.data.local.entity.TrendingMovieEntity
+import com.maxidev.movips.trending.data.local.entity.remote_key_entity.TrendingMovieRemoteKeyEntity
 
 @Database(
     entities = [
@@ -25,12 +29,14 @@ import com.maxidev.movips.movies.data.local.entity.remote_key_entity.UpcomingMov
         PopularMoviesEntity::class,
         TopRatedMoviesEntity::class,
         UpcomingMoviesEntity::class,
+        TrendingMovieEntity::class,
         NowPlayingMoviesRemoteKeyEntity::class,
         PopularMoviesRemoteKeyEntity::class,
         TopRatedMoviesRemoteKeyEntity::class,
-        UpcomingMoviesRemoteKeyEntity::class
+        UpcomingMoviesRemoteKeyEntity::class,
+        TrendingMovieRemoteKeyEntity::class
                ],
-    version = 10,
+    version = 11,
     exportSchema = false
 )
 abstract class MovipsDataBase: RoomDatabase() {
@@ -46,4 +52,7 @@ abstract class MovipsDataBase: RoomDatabase() {
 
     abstract fun upcomingMoviesDao(): UpcomingMoviesDao
     abstract fun upcomingMoviesRemoteKeyDao(): UpcomingMoviesRemoteKeyDao
+
+    abstract fun trendingMovieDao(): TrendingMovieDao
+    abstract fun trendingMovieRemoteKeyDao(): TrendingMoviesRemoteKeyDao
 }

@@ -6,6 +6,8 @@ import com.maxidev.movips.movies.data.repository.MoviesRepository
 import com.maxidev.movips.movies.data.repository.impl.MoviesRepositoryImpl
 import com.maxidev.movips.search.data.repository.SearchMovieRepository
 import com.maxidev.movips.search.data.repository.impl.SearchMovieRepositoryImpl
+import com.maxidev.movips.trending.data.repositoy.TrendingMovieRepository
+import com.maxidev.movips.trending.data.repositoy.impl.TrendingMovieRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,4 +31,9 @@ abstract class RepositoryModule {
     abstract fun bindsSearchMovieRepository(
         repositoryImpl: SearchMovieRepositoryImpl
     ): SearchMovieRepository
+
+    @Binds
+    abstract fun bindsTrendingMovieRepository(
+        repositoryImpl: TrendingMovieRepositoryImpl
+    ): TrendingMovieRepository
 }

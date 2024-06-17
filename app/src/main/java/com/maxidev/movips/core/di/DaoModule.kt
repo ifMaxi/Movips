@@ -5,6 +5,7 @@ import com.maxidev.movips.movies.data.local.dao.NowPlayingMoviesDao
 import com.maxidev.movips.movies.data.local.dao.PopularMoviesDao
 import com.maxidev.movips.movies.data.local.dao.TopRatedMoviesDao
 import com.maxidev.movips.movies.data.local.dao.UpcomingMoviesDao
+import com.maxidev.movips.trending.data.local.dao.TrendingMovieDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +35,9 @@ object DaoModule {
     @Singleton
     fun providesUpcomingMoviesDao(database: MovipsDataBase): UpcomingMoviesDao =
         database.upcomingMoviesDao()
+
+    @Provides
+    @Singleton
+    fun providesTrendingMovieDao(database: MovipsDataBase): TrendingMovieDao =
+        database.trendingMovieDao()
 }
