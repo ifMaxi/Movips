@@ -3,10 +3,8 @@ package com.maxidev.movips.trending.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,7 +16,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.maxidev.movips.core.presentation.components.SectionItem
-import com.maxidev.movips.core.presentation.components.TopBarItem
 import com.maxidev.movips.trending.domain.models.TrendingMovie
 import com.maxidev.movips.trending.presentation.components.PosterWithTitleAndStarsItem
 
@@ -29,19 +26,10 @@ fun TrendingMoviesScreen(
 ) {
     val trendingState = viewModel.trendingFlow.collectAsLazyPagingItems()
 
-    Scaffold(
-        topBar = {
-            TopBarItem(
-                title = "Trending"
-            )
-        }
-    ) { innerPadding ->
-        TrendingList(
-            lazyPaging = trendingState,
-            onClick = onClick,
-            modifier = Modifier.padding(innerPadding)
-        )
-    }
+    TrendingList(
+        lazyPaging = trendingState,
+        onClick = onClick
+    )
 }
 
 @Composable

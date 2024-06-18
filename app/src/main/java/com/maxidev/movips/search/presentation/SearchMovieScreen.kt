@@ -3,9 +3,11 @@ package com.maxidev.movips.search.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -73,10 +75,10 @@ fun SearchMovieScreen(
                 }
             )
         },
-        //contentWindowInsets = WindowInsets.statusBars
-    ) { paddingValues ->
+        contentWindowInsets = WindowInsets.statusBars
+    ) { innerPadding ->
         SearchItem(
-            modifier = modifier.padding(paddingValues),
+            modifier = modifier.padding(innerPadding),
             model = searchMovies,
             onClick = onClick
         )

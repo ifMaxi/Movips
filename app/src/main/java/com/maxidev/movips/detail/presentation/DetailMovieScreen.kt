@@ -1,7 +1,10 @@
 package com.maxidev.movips.detail.presentation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.waterfall
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -43,12 +46,14 @@ fun DetailMovieScreen(
     CheckStatus(
         detailStatus = detailState,
         creditModel = creditState,
-        recommendedModel = recommendationState
+        recommendedModel = recommendationState,
+        modifier = Modifier.windowInsetsPadding(WindowInsets.waterfall)
     )
 }
 
 @Composable
 private fun CheckStatus(
+    modifier: Modifier = Modifier,
     detailStatus: DetailState,
     creditModel: LazyPagingItems<CreditsMovie>,
     recommendedModel: LazyPagingItems<RecommendationsMovies>,
@@ -60,7 +65,8 @@ private fun CheckStatus(
         is DetailState.Success -> DetailContent(
             detailedModel = detailStatus.onSuccess,
             creditModel = creditModel,
-            recommendedModel = recommendedModel
+            recommendedModel = recommendedModel,
+            modifier = modifier
         )
     }
 }

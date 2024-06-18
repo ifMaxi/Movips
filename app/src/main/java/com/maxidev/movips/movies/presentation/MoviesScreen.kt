@@ -3,6 +3,7 @@ package com.maxidev.movips.movies.presentation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,7 +29,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.maxidev.movips.core.presentation.components.SectionItem
-import com.maxidev.movips.core.presentation.components.TopBarItem
 import com.maxidev.movips.movies.domain.models.Movies
 import com.maxidev.movips.movies.presentation.components.ImageCardWithRatedIcons
 import com.maxidev.movips.movies.presentation.components.NowPlayingItem
@@ -45,22 +44,13 @@ fun MoviesScreen(
     val topRatedState = viewmodel.topRatedFlow.collectAsLazyPagingItems()
     val upcomingState = viewmodel.upcomingFlow.collectAsLazyPagingItems()
 
-    Scaffold(
-        topBar = {
-            TopBarItem(
-                title = "Movips"
-            )
-        }
-    ) { innerPadding ->
-        ListContent(
-            now = nowPlayingState,
-            popular = popularState,
-            topRated = topRatedState,
-            upcoming = upcomingState,
-            onClick = onClick,
-            modifier = Modifier.padding(innerPadding)
-        )
-    }
+    ListContent(
+        now = nowPlayingState,
+        popular = popularState,
+        topRated = topRatedState,
+        upcoming = upcomingState,
+        onClick = onClick
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -84,6 +74,7 @@ private fun ListContent(
         modifier = modifier
             .fillMaxSize(),
         state = lazyState,
+        contentPadding = PaddingValues(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {

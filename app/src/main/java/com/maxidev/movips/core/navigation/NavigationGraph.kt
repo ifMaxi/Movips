@@ -1,15 +1,14 @@
 package com.maxidev.movips.core.navigation
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsIgnoringVisibility
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,7 +39,7 @@ fun NavigationGraph(
     val currentDestination = navBackStackEntry?.destination
 
     Scaffold(
-        contentWindowInsets = WindowInsets.navigationBarsIgnoringVisibility,
+        contentWindowInsets = ScaffoldDefaults.contentWindowInsets,
         bottomBar = {
             NavigationBar(
                 modifier = modifier
