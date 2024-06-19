@@ -16,22 +16,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.maxidev.movips.presentation.detail.DetailMovieScreen
+import com.maxidev.movips.presentation.detail.DetailedMovieViewModel
 import com.maxidev.movips.presentation.movies.MoviesScreen
 import com.maxidev.movips.presentation.movies.MoviesViewModel
 import com.maxidev.movips.presentation.search.SearchMovieScreen
+import com.maxidev.movips.presentation.search.SearchMovieViewModel
+import com.maxidev.movips.presentation.trending.TrendingMovieViewModel
 import com.maxidev.movips.presentation.trending.TrendingMoviesScreen
+import kotlinx.serialization.Serializable
 
 @Composable
 fun NavigationGraph(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    startDestination: NavDestinations = NavDestinations.Movies
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -44,12 +48,12 @@ fun NavigationGraph(
                     .fillMaxWidth(),
                 tonalElevation = NavigationBarDefaults.Elevation
             ) {
-                NavigationItemUtils.destinationList.forEach { screen ->
+                NavBarDestinations.destinationList.forEach { screen ->
                     NavigationBarItem(
                         label = { Text(text = screen.title) },
                         selected = currentDestination?.hierarchy?.any {
-                            it.route == screen.route
-                        } == true,
+                            //it.route == screen.route
+                            it.route?.equals(screen.route) == true } == true,
                         onClick = {
                             navController.navigate(screen.route) {
                                 popUpTo(navController.graph.findStartDestination().id) {
@@ -73,46 +77,59 @@ fun NavigationGraph(
         NavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            startDestination = Destinations.MovieDiscoverScreen.route
+            startDestination = startDestination
         ) {
-            composable(route = Destinations.MovieDiscoverScreen.route) {
+            composable<NavDestinations.Movies> {
                 val viewModel = hiltViewModel<MoviesViewModel>()
 
                 MoviesScreen(
                     viewmodel = viewModel,
                     onClick = {
-                        navController.navigate(
-                            Destinations.DetailScreen.route + "?movieId=${it}"
-                        )
+                        navController.navigate(NavDestinations.Detail(movieId = it))
                     }
                 )
             }
-            composable(
-                route = Destinations.DetailScreen.route + "?movieId={movieId}",
-                arguments = listOf(navArgument("movieId") { type = NavType.IntType })
-            ) { backStackEntry ->
-                val backStack = backStackEntry.arguments?.getInt("movieId")
+            composable<NavDestinations.Detail> { backStackEntry ->
+                val viewmodel = hiltViewModel<DetailedMovieViewModel>()
+                val args = backStackEntry.toRoute<NavDestinations.Detail>().movieId
 
-                DetailMovieScreen(movieId = backStack ?: 0)
+                DetailMovieScreen(
+                    viewModel = viewmodel,
+                    movieId = args
+                )
             }
-            composable(route = Destinations.SearchScreen.route) {
+            composable<NavDestinations.Search> {
+                val viewModel = hiltViewModel<SearchMovieViewModel>()
+
                 SearchMovieScreen(
+                    viewModel = viewModel,
                     onClick = {
-                        navController.navigate(
-                            Destinations.DetailScreen.route + "?movieId=${it}"
-                        )
+                        navController.navigate(NavDestinations.Detail(movieId = it))
                     }
                 )
             }
-            composable(route = Destinations.TrendingScreen.route) {
+            composable<NavDestinations.Trending> {
+                val viewModel = hiltViewModel<TrendingMovieViewModel>()
+
                 TrendingMoviesScreen(
+                    viewModel = viewModel,
                     onClick = {
-                        navController.navigate(
-                            Destinations.DetailScreen.route + "?movieId=${it}"
-                        )
+                        navController.navigate(NavDestinations.Detail(movieId = it))
                     }
                 )
             }
         }
     }
+}
+
+@Serializable
+sealed class NavDestinations {
+    @Serializable
+    data object Movies: NavDestinations()
+    @Serializable
+    data object Search: NavDestinations()
+    @Serializable
+    data object Trending: NavDestinations()
+    @Serializable
+    data class Detail(val movieId: Int): NavDestinations()
 }

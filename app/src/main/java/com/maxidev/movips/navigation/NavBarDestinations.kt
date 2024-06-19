@@ -2,37 +2,37 @@ package com.maxidev.movips.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.TrendingUp
-import androidx.compose.material.icons.filled.Details
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class Destinations(
-    val route: String,
+sealed class NavBarDestinations(
+    val route: NavDestinations,
     val title: String,
     val iconSelected: ImageVector
 ) {
-    data object MovieDiscoverScreen: Destinations(
-        route = "movie_discover_screen",
+    data object MovieDiscoverScreen: NavBarDestinations(
+        route = NavDestinations.Movies,
         title = "Home",
         iconSelected = Icons.Filled.Home
     )
-
-    data object DetailScreen: Destinations(
-        route = "detail_screen",
-        title = "Details",
-        iconSelected = Icons.Filled.Details
-    )
-
-    data object SearchScreen: Destinations(
-        route = "search_screen",
+    data object SearchScreen: NavBarDestinations(
+        route = NavDestinations.Search,
         title = "Search",
         iconSelected = Icons.Filled.Search
     )
-
-    data object TrendingScreen: Destinations(
-        route = "trending_screen",
+    data object TrendingScreen: NavBarDestinations(
+        route = NavDestinations.Trending,
         title = "Trending",
         iconSelected = Icons.AutoMirrored.Filled.TrendingUp
     )
+
+    companion object {
+
+        val destinationList = listOf(
+            MovieDiscoverScreen,
+            TrendingScreen,
+            SearchScreen
+        )
+    }
 }
