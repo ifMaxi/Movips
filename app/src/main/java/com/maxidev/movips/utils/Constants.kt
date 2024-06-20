@@ -28,8 +28,4 @@ object Constants {
 
     // Trending
     const val TRENDING_MOVIE = "trending/movie/{time_window}"
-
-    // People
-    const val PEOPLE_DETAIL = "person/{person_id}"
-    const val PEOPLE_CREDITS_MOVIE = "person/{person_id}/movie_credits"
 }
