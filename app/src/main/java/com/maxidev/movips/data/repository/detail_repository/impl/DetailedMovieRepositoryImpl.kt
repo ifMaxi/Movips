@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.filter
-import com.maxidev.movips.data.datasource.detail_datasource.CreditMovieDataSource
 import com.maxidev.movips.data.datasource.detail_datasource.DetailedMovieDataSource
 import com.maxidev.movips.data.paging.detail_paging.CreditsPagingSource
 import com.maxidev.movips.data.paging.detail_paging.RecommendationsPagingSource
@@ -19,7 +18,6 @@ import javax.inject.Inject
 
 class DetailedMovieRepositoryImpl @Inject constructor(
     private val dataSource: DetailedMovieDataSource,
-    private val creditsDataSource: CreditMovieDataSource,
     private val api: DetailsRemoteApiService
 ): DetailedMovieRepository {
 
@@ -40,9 +38,6 @@ class DetailedMovieRepositoryImpl @Inject constructor(
                     it.knownForDepartment == "Acting"
                 }
             }
-//        creditsDataSource.fetchCredits(movieId).filter {
-//            it.knownForDepartment == "Acting"
-//        }
 
     override fun fetchedRecommendations(movieId: Int): Flow<PagingData<RecommendationsMovies>> =
         Pager(

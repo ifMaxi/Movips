@@ -10,18 +10,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
-import com.maxidev.movips.presentation.components.SectionItem
 import com.maxidev.movips.domain.trending_domain.models.TrendingMovie
+import com.maxidev.movips.presentation.components.SectionItem
 import com.maxidev.movips.presentation.trending.components.PosterWithTitleAndStarsItem
 
 @Composable
 fun TrendingMoviesScreen(
-    viewModel: TrendingMovieViewModel = hiltViewModel(),
+    viewModel: TrendingMovieViewModel,
     onClick: (Int) -> Unit
 ) {
     val trendingState = viewModel.trendingFlow.collectAsLazyPagingItems()

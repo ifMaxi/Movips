@@ -3,6 +3,7 @@ package com.maxidev.movips.navigation
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
@@ -46,7 +47,8 @@ fun NavigationGraph(
             NavigationBar(
                 modifier = modifier
                     .fillMaxWidth(),
-                tonalElevation = NavigationBarDefaults.Elevation
+                tonalElevation = NavigationBarDefaults.Elevation,
+                containerColor = MaterialTheme.colorScheme.background
             ) {
                 NavBarDestinations.destinationList.forEach { screen ->
                     NavigationBarItem(

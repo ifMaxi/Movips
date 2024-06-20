@@ -12,15 +12,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.maxidev.movips.R
-import com.maxidev.movips.presentation.components.StatusItem
 import com.maxidev.movips.domain.detail_domain.models.CreditsMovie
 import com.maxidev.movips.domain.detail_domain.models.DetailedMovie
 import com.maxidev.movips.domain.detail_domain.models.RecommendationsMovies
+import com.maxidev.movips.presentation.components.StatusItem
 import com.maxidev.movips.presentation.detail.components.CompaniesItem
 import com.maxidev.movips.presentation.detail.components.CreditContentItem
 import com.maxidev.movips.presentation.detail.components.GenresRowItem
@@ -32,8 +31,8 @@ import com.maxidev.movips.presentation.detail.state.DetailState
 
 @Composable
 fun DetailMovieScreen(
-    viewModel: DetailedMovieViewModel = hiltViewModel(),
-    movieId: Int,
+    viewModel: DetailedMovieViewModel,
+    movieId: Int
 ) {
     val detailState by viewModel.detailState.collectAsStateWithLifecycle()
     val creditState = viewModel.pagerCredits(movieId).collectAsLazyPagingItems()
@@ -61,7 +60,7 @@ private fun CheckStatus(
 
     when (detailStatus) {
         is DetailState.Error -> { StatusItem(animation = R.raw.image_error) }
-        DetailState.Loading -> { StatusItem(animation = R.raw.movie_loading) }
+        DetailState.Loading -> { StatusItem(animation = R.raw.dots_loading) }
         is DetailState.Success -> DetailContent(
             detailedModel = detailStatus.onSuccess,
             creditModel = creditModel,

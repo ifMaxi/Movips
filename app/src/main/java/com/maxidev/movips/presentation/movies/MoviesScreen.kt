@@ -1,6 +1,5 @@
 package com.maxidev.movips.presentation.movies
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -53,7 +52,6 @@ fun MoviesScreen(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ListContent(
     modifier: Modifier = Modifier,
@@ -80,10 +78,14 @@ private fun ListContent(
     ) {
         item {
             SectionItem(
+                title = "Movips - Home",
+                fontSize = 36.sp
+            )
+        }
+        item {
+            SectionItem(
                 title = "Now Playing",
-                fontSize = 30.sp,
-                modifier = Modifier
-                    .padding(10.dp)
+                fontSize = 30.sp
             )
         }
         item {
@@ -193,9 +195,7 @@ private fun <T : Any> LazyRowListItem(
     ) {
         SectionItem(
             title = title,
-            fontSize = 28.sp,
-            modifier = Modifier
-                .padding(10.dp)
+            fontSize = 28.sp
         )
         LazyRow(
             modifier = Modifier

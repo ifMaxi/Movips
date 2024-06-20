@@ -28,19 +28,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.maxidev.movips.presentation.components.ItemCoil
 import com.maxidev.movips.domain.search_domain.models.SearchMovie
+import com.maxidev.movips.presentation.components.ItemCoil
 import com.maxidev.movips.presentation.search.components.SearchBarItem
 import kotlinx.coroutines.launch
 
 @Composable
 fun SearchMovieScreen(
     modifier: Modifier = Modifier,
-    viewModel: SearchMovieViewModel = hiltViewModel(),
+    viewModel: SearchMovieViewModel,
     onClick: (Int) -> Unit
 ) {
     val query by viewModel.searchQuery.value.query

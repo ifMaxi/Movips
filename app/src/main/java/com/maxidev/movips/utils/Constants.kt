@@ -23,9 +23,6 @@ object Constants {
     // Recommendations
     const val RECOMMENDATIONS_MOVIE = "movie/{movie_id}/recommendations"
 
-    // Collections
-    const val COLLECTION_DETAIL = "collection/{collection_id}"
-
     // Trending
     const val TRENDING_MOVIE = "trending/movie/{time_window}"
 }
