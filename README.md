@@ -54,4 +54,21 @@ The app uses several APIs from [The Movie DataBase](https://developer.themoviedb
 
 ## Captures
 
-TODO.
+| Home(Now playing/Popular) | Home(Top rated/Coming soon) | Trending |
+| ------------- | ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/Movips/assets/112733459/dbd4720f-72b3-43cb-9b14-1058d5294e62" width="290" height="600">  | <img src="https://github.com/ifMaxi/Movips/assets/112733459/78940362-05e0-47f9-8d7e-aa5e3b53aa81" width="290" height="600"> | <img src="https://github.com/ifMaxi/Movips/assets/112733459/8b988e82-82b8-4a35-b84c-7738f509507f" width="290" height="600">|
+
+
+| Search | Searched | Details(Top) |
+| ------------- | ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/Movips/assets/112733459/ab534c4e-4980-491a-a1dc-a0fc6d90ebee" width="290" height="600">  | <img src="https://github.com/ifMaxi/Movips/assets/112733459/7610fc21-c123-4e15-a5c3-1783193235fe" width="290" height="600"> | <img src="https://github.com/ifMaxi/Movips/assets/112733459/7d37411d-7eac-4ff7-97f7-04de516cc88f" width="290" height="600">|
+
+
+| Details(Mid) | Details(Bottom) | Home(Dark mode) |
+| ------------- | ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/Movips/assets/112733459/17a36614-08e2-4540-8be1-2134747ef988" width="290" height="600">  | <img src="https://github.com/ifMaxi/Movips/assets/112733459/6a1ff0e4-dc95-4c31-b4cc-b6620c882534" width="290" height="600"> | <img src="https://github.com/ifMaxi/Movips/assets/112733459/ac5412ad-eb27-461c-9480-6e6a3f6176c6" width="290" height="600">|
+
+
+| Trending(Dark mode) | Search(Dark mode) | Details(Dark mode) |
+| ------------- | ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/Movips/assets/112733459/5053b8e7-11ab-4617-973e-35c75d4c3d31" width="290" height="600">  | <img src="https://github.com/ifMaxi/Movips/assets/112733459/cd67b65f-1b28-42d3-b723-95533526ddad" width="290" height="600"> | <img src="https://github.com/ifMaxi/Movips/assets/112733459/9599f838-eedf-43f2-ad9c-43b83b54a68b" width="290" height="600">|
